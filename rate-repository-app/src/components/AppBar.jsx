@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import Text from './Text';
@@ -15,31 +15,26 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: theme.colors.white,
-		marginHorizontal: 10,
+		marginHorizontal: 15,
+		fontSize: theme.fontSizes.header,
+		fontWeight: theme.fontWeights.bold,
 	},
 });
 
 const AppBar = () => {
 	return (
 		<View style={styles.container}>
-			<Link to='/'>
-				<Text
-					fontSize={'header'}
-					fontWeight={'bold'}
-					style={styles.title}
-				>
-					Repositories
-				</Text>
-			</Link>
-			<Link to={'/singin'}>
-				<Text
-					fontSize={'header'}
-					fontWeight={'bold'}
-					style={styles.title}
-				>
-					Sign-In
-				</Text>
-			</Link>
+			<ScrollView horizontal>
+				<Link to='/'>
+					<Text style={styles.title}>Repositories</Text>
+				</Link>
+				<Link to={'/singin'}>
+					<Text style={styles.title}>Sign-In</Text>
+				</Link>
+				{/* <Text style={styles.title}>Hello</Text>
+				<Text style={styles.title}>Hello</Text>
+				<Text style={styles.title}>Hello</Text> */}
+			</ScrollView>
 		</View>
 	);
 };
