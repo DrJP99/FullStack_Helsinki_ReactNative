@@ -4,6 +4,8 @@ import Text from './Text';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import theme from '../theme';
+import { Navigate, Route, Routes } from 'react-router-native';
+import SignIn from './SignIn';
 
 const styles = StyleSheet.create({
 	container: {
@@ -19,13 +21,11 @@ const Main = () => {
 		<View style={styles.container}>
 			<StatusBar backgroundColor={theme.colors.darker} />
 			<AppBar />
-			{/* <Text>Rate Repository Application</Text>
-			<Text style={{ paddingBottom: 10 }}>Text with custom style</Text>
-			<Text fontWeight={'bold'} fontSize={'subheading'}>
-				Bold subheading
-			</Text> */}
-			{/* <Text color={'textSecondary'}>Text with secondary</Text> */}
-			<RepositoryList />
+			<Routes>
+				<Route path='/' element={<RepositoryList />} />
+				<Route path='/singin' element={<SignIn />} />
+				<Route path='*' element={<Navigate to={'/'} replace />} />
+			</Routes>
 		</View>
 	);
 };
