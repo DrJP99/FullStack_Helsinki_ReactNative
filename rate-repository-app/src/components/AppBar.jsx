@@ -7,17 +7,23 @@ const styles = StyleSheet.create({
 	container: {
 		paddingTop: Constants.statusBarHeight,
 		paddingBottom: 15,
-		backgroundColor: theme.colors.bgPrimary,
+		backgroundColor: theme.colors.dark,
 		paddingHorizontal: 10,
 	},
-	// ...
+	title: {
+		color: theme.colors.white,
+	},
 });
 
 const AppBar = () => {
 	return (
 		<View style={styles.container}>
 			<Pressable>
-				<Text fontSize={'header'} fontWeight={'bold'}>
+				<Text
+					fontSize={'header'}
+					fontWeight={'bold'}
+					style={styles.title}
+				>
 					Repositories
 				</Text>
 			</Pressable>
