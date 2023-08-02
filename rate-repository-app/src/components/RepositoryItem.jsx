@@ -2,7 +2,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import Text from './Text';
 import theme from '../theme';
 
-export default RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item }) => {
 	const styles = StyleSheet.create({
 		container: {
 			padding: 15,
@@ -106,3 +106,5 @@ export default RepositoryItem = ({ item }) => {
 		</View>
 	);
 };
+
+export default RepositoryItem;
