@@ -1,8 +1,9 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import Text from './Text';
 import theme from '../theme';
+import { useNavigate } from 'react-router-native';
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, inList = true, children }) => {
 	const styles = StyleSheet.create({
 		container: {
 			padding: 15,
@@ -47,6 +48,8 @@ const RepositoryItem = ({ item }) => {
 		},
 	});
 
+	const navigate = useNavigate();
+
 	const parseNumbers = (num) => {
 		let parsed = `${num}`;
 		let modified;
@@ -64,13 +67,19 @@ const RepositoryItem = ({ item }) => {
 			<View style={styles.header}>
 				<Image src={item.ownerAvatarUrl} style={styles.avatarImg} />
 				<View style={styles.headerDescription}>
-					<Text
-						fontWeight={'bold'}
-						fontSize={'subheading'}
-						style={styles.text}
+					<Pressable
+						onPress={() =>
+							inList ? navigate(`/${item.id}`) : null
+						}
 					>
-						{item.fullName}
-					</Text>
+						<Text
+							fontWeight={'bold'}
+							fontSize={'subheading'}
+							style={styles.text}
+						>
+							{item.fullName}
+						</Text>
+					</Pressable>
 					<Text color={'textSecondary'} style={styles.text}>
 						{item.description}
 					</Text>
@@ -103,6 +112,7 @@ const RepositoryItem = ({ item }) => {
 					<Text color={'textSecondary'}>Rating</Text>
 				</View>
 			</View>
+			{children}
 		</View>
 	);
 };
