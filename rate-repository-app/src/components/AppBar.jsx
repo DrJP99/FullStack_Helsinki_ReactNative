@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		display: 'flex',
 		flexDirection: 'row',
+		// height: 80,
 	},
 	title: {
 		color: theme.colors.white,
@@ -39,6 +40,7 @@ const AppBar = () => {
 	return (
 		<View style={styles.container}>
 			<ScrollView horizontal>
+				<Text></Text>
 				<Link to='/'>
 					<Text style={styles.title}>Repositories</Text>
 				</Link>

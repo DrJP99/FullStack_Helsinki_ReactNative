@@ -32,6 +32,20 @@ export const GET_RESPOSITORY = gql`
 			reviewCount
 			ratingAverage
 			url
+			reviews {
+				edges {
+					node {
+						id
+						rating
+						text
+						createdAt
+						user {
+							id
+							username
+						}
+					}
+				}
+			}
 		}
 	}
 `;
