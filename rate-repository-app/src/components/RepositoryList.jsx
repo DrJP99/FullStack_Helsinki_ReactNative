@@ -4,8 +4,19 @@ import theme from '../theme';
 import useRepositories from '../hooks/useRepositories';
 import { useEffect, useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
+import TextInput from './TextInput';
+import Text from './Text';
 
 const styles = StyleSheet.create({
+	headerContainer: {
+		paddingHorizontal: 15,
+		paddingVertical: 15,
+		// backgroundColor: theme.colors.white,
+		// marginBottom: 10,
+	},
+	textField: {
+		backgroundColor: theme.colors.white,
+	},
 	separator: {
 		height: 10,
 		backgroundColor: theme.colors.gray,
@@ -14,8 +25,9 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const SelectOption = ({ setOrderDirection, setOrderBy }) => {
+const SelectOption = ({ setOrderDirection, setOrderBy, setSearchKeyword }) => {
 	const [selected, setSelected] = useState('latest');
+	const [textValue, setTextValue] = useState('');
 
 	const handleSelect = (value) => {
 		setSelected(value);
@@ -41,16 +53,30 @@ const SelectOption = ({ setOrderDirection, setOrderBy }) => {
 	};
 
 	return (
-		<Picker
-			selectedValue={selected}
-			onValueChange={(itemValue) => {
-				handleSelect(itemValue);
-			}}
-		>
-			<Picker.Item label='Latest repositories' value={'latest'} />
-			<Picker.Item label='Highest rated repositories' value={'highest'} />
-			<Picker.Item label='Loswest rated repositories' value={'lowest'} />
-		</Picker>
+		<View style={styles.headerContainer}>
+			<TextInput
+				style={styles.textField}
+				placeholder='Search keywords...'
+				// value={textValue}
+				onChangeText={(newText) => setSearchKeyword(newText)}
+			/>
+			<Picker
+				selectedValue={selected}
+				onValueChange={(itemValue) => {
+					handleSelect(itemValue);
+				}}
+			>
+				<Picker.Item label='Latest repositories' value={'latest'} />
+				<Picker.Item
+					label='Highest rated repositories'
+					value={'highest'}
+				/>
+				<Picker.Item
+					label='Loswest rated repositories'
+					value={'lowest'}
+				/>
+			</Picker>
+		</View>
 	);
 };
 
@@ -58,8 +84,13 @@ const RepositoryList = () => {
 	// const [orderDirection, setOrderDirection] = useState('DESC');
 	// const [orderBy, setOrderBy] = useState('CREATED_AT');
 
-	const { repositories, refetch, setOrderDirection, setOrderBy } =
-		useRepositories();
+	const {
+		repositories,
+		loading,
+		setOrderDirection,
+		setOrderBy,
+		setSearchKeyword,
+	} = useRepositories();
 
 	const repositoryNodes = repositories
 		? repositories.edges.map((edge) => edge.node)
@@ -76,6 +107,7 @@ const RepositoryList = () => {
 				<SelectOption
 					setOrderDirection={setOrderDirection}
 					setOrderBy={setOrderBy}
+					setSearchKeyword={setSearchKeyword}
 				/>
 			}
 			ItemSeparatorComponent={ItemSeparator}
