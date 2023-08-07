@@ -69,7 +69,7 @@ const RepositoryItem = ({ item, inList = true, children }) => {
 				<View style={styles.headerDescription}>
 					<Pressable
 						onPress={() =>
-							inList ? navigate(`/${item.id}`) : null
+							inList ? navigate(`/reviews/${item.id}`) : null
 						}
 					>
 						<Text

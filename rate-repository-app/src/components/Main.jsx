@@ -25,19 +25,12 @@ const Main = () => {
 			<AppBar />
 			<Routes>
 				<Route path='/' element={<RepositoryList />} />
+				<Route path='/reviews/:id' element={<RepositoryPage />} />
 				<Route path='/singin' element={<SignIn />} />
-				<Route
-					path='/:id'
-					element={
-						<>
-							<RepositoryPage />
-						</>
-					}
-				/>
-				<Route path='signup' element={<SignUp />} />
+				<Route path='/signup' element={<SignUp />} />
 				<Route path='/review' element={<ReviewForm />} />
 				<Route path='/myreviews' element={<MyReviews />} />
-				<Route path='*' element={<Navigate to={'/'} replace />} />
+				<Route path='/*' element={<Navigate to={'/'} replace />} />
 			</Routes>
 		</View>
 	);
