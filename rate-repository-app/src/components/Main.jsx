@@ -5,6 +5,7 @@ import theme from '../theme';
 import { Navigate, Route, Routes } from 'react-router-native';
 import SignIn from './SignIn';
 import RepositoryPage from './RepositoryPage';
+import ReviewForm from './ReviewForm';
 
 const styles = StyleSheet.create({
 	container: {
@@ -23,9 +24,15 @@ const Main = () => {
 			<Routes>
 				<Route path='/' element={<RepositoryList />} />
 				<Route path='/singin' element={<SignIn />} />
-				<Route path='/:id' element={<>
-					<RepositoryPage />
-				</>} />
+				<Route
+					path='/:id'
+					element={
+						<>
+							<RepositoryPage />
+						</>
+					}
+				/>
+				<Route path='/review' element={<ReviewForm />} />
 				<Route path='*' element={<Navigate to={'/'} replace />} />
 			</Routes>
 		</View>

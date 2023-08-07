@@ -2,7 +2,7 @@ import { View, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import Text from './Text';
-import { Link } from 'react-router-native';
+import { Link, useNavigate } from 'react-router-native';
 import { useApolloClient, useQuery } from '@apollo/client';
 import { ME } from '../graphql/queries';
 import useAuthStorage from '../hooks/useAuthStorage';
@@ -29,6 +29,7 @@ const AppBar = () => {
 	const { data } = useQuery(ME);
 	const authStorage = useAuthStorage();
 	const apolloClient = useApolloClient();
+	const navigate = useNavigate();
 
 	let username;
 	if (data && data.me) {
@@ -45,14 +46,20 @@ const AppBar = () => {
 					<Text style={styles.title}>Repositories</Text>
 				</Link>
 				{username ? (
-					<Pressable
-						onPress={async () => {
-							await authStorage.removeAccessToken();
-							apolloClient.resetStore();
-						}}
-					>
-						<Text style={styles.title}>Sign-Out</Text>
-					</Pressable>
+					<>
+						<Link to='/review'>
+							<Text style={styles.title}>Create a review</Text>
+						</Link>
+						<Pressable
+							onPress={async () => {
+								await authStorage.removeAccessToken();
+								apolloClient.resetStore();
+								navigate('/');
+							}}
+						>
+							<Text style={styles.title}>Sign-Out</Text>
+						</Pressable>
+					</>
 				) : (
 					<Link to={'/singin'}>
 						<Text style={styles.title}>Sign-In</Text>
