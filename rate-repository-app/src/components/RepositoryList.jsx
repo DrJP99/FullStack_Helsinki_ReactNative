@@ -86,10 +86,10 @@ const RepositoryList = () => {
 
 	const {
 		repositories,
-		loading,
 		setOrderDirection,
 		setOrderBy,
 		setSearchKeyword,
+		fetchMore,
 	} = useRepositories();
 
 	const repositoryNodes = repositories
@@ -99,6 +99,11 @@ const RepositoryList = () => {
 	// useEffect(() => {
 	// 	setOrder(orderDirection, orderBy);
 	// }, [orderBy]);
+
+	const onEndReach = () => {
+		console.log('fetching more...');
+		fetchMore();
+	};
 
 	return (
 		<FlatList
@@ -113,6 +118,8 @@ const RepositoryList = () => {
 			ItemSeparatorComponent={ItemSeparator}
 			renderItem={({ item }) => <RepositoryItem item={item} />}
 			keyExtractor={(item) => item.id}
+			onEndReached={() => onEndReach()}
+			onEndReachedThreshold={0.5}
 		/>
 	);
 };

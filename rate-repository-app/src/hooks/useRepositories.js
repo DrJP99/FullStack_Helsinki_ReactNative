@@ -9,15 +9,37 @@ const useRepositories = () => {
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [value] = useDebounce(searchKeyword, 500);
 
-	const { data, error, loading, refetch } = useQuery(GET_REPOSITORIES, {
-		variables: {
-			orderDirection,
-			orderBy,
-			searchKeyword: value,
-		},
-		fetchPolicy: 'cache-and-network',
-		enabled: false,
-	});
+	const variables = {
+		first: 8,
+		orderDirection,
+		orderBy,
+		searchKeyword: value,
+	};
+
+	const { data, error, loading, refetch, fetchMore, ...result } = useQuery(
+		GET_REPOSITORIES,
+		{
+			variables,
+			fetchPolicy: 'cache-and-network',
+			enabled: false,
+		}
+	);
+
+	const handleFetchMore = () => {
+		const canFetchMore =
+			!loading && data?.repositories.pageInfo.hasNextPage;
+
+		if (!canFetchMore) {
+			return;
+		}
+
+		fetchMore({
+			variables: {
+				after: data.repositories.pageInfo.endCursor,
+				...variables,
+			},
+		});
+	};
 
 	let repositories = undefined;
 	if (!loading && !error) {
@@ -26,6 +48,7 @@ const useRepositories = () => {
 
 	return {
 		repositories,
+		fetchMore: handleFetchMore,
 		loading,
 		error,
 		refetch,
