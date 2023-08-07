@@ -56,7 +56,11 @@ const RepositoryPage = () => {
 	const params = useParams();
 
 	const id = params.id;
-	const { repository, loading, error } = useRepository(id);
+	const { repository, loading, error, fetchMore } = useRepository(id);
+
+	const onEndReach = () => {
+		fetchMore();
+	};
 
 	if (loading) {
 		return <Text>Loading data...</Text>;
@@ -79,6 +83,8 @@ const RepositoryPage = () => {
 			)}
 			ListHeaderComponentStyle={{ marginBottom: 15 }}
 			ItemSeparatorComponent={() => <ItemSeparator />}
+			onEndReached={() => onEndReach()}
+			onEndReachedThreshold={0.5}
 		/>
 	);
 };
