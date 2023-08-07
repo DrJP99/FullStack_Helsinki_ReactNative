@@ -24,7 +24,12 @@ const styles = StyleSheet.create({
 	},
 });
 
-const FormikTextInput = ({ name, secureTextEntry = false, ...props }) => {
+const FormikTextInput = ({
+	name,
+	secureTextEntry = false,
+	multiline = false,
+	...props
+}) => {
 	const [field, meta, helpers] = useField(name);
 	const showError = meta.touched && meta.error;
 
@@ -37,6 +42,7 @@ const FormikTextInput = ({ name, secureTextEntry = false, ...props }) => {
 				value={field.value}
 				error={showError}
 				secureTextEntry={secureTextEntry}
+				multiline={multiline}
 				{...props}
 			/>
 			{showError && <Text style={styles.errorText}>{meta.error}</Text>}
