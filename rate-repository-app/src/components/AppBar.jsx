@@ -50,6 +50,9 @@ const AppBar = () => {
 						<Link to='/review'>
 							<Text style={styles.title}>Create a review</Text>
 						</Link>
+						<Link to='/myreviews'>
+							<Text style={styles.title}>My reviews</Text>
+						</Link>
 						<Pressable
 							onPress={async () => {
 								await authStorage.removeAccessToken();
